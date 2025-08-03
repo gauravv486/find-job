@@ -7,8 +7,15 @@ export const userContext = createContext();
 export default function UserProvider({ children }) {
 
     const [user, setuser] = useState({});
+    const [savejobs, setsavejobs] = useState([]);
 
     useEffect(() => {
+
+        const storedjobs = localStorage.getItem('savejobs');
+        if (storedjobs) {
+            setsavejobs(JSON.parse(storedjobs));
+        }
+
         async function getuser() {
             try {
                 const res = await fetch('http://localhost:3000/api/curr-user');
@@ -21,14 +28,21 @@ export default function UserProvider({ children }) {
             }
         }
         getuser();
+
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem('savejobs', JSON.stringify(savejobs));
+    }, [savejobs]);
 
     return (
         <userContext.Provider value={{
             user,
-            setuser
+            setuser,
+            savejobs,
+            setsavejobs
         }}>
-           {children}
+            {children}
         </userContext.Provider>
     )
 }       

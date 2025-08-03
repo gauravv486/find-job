@@ -22,13 +22,11 @@ export async function POST(req: NextRequest) {
             data: body
         })
 
-        
-
-
         return NextResponse.json({
             success: true,
             data: user
         })
+        
     } catch (error: any) {
         return NextResponse.json({
             success: false,

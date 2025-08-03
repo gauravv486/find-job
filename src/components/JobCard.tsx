@@ -1,8 +1,29 @@
+//@ts-nocheck
+'use client'
+import { userContext } from '@/context/User'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import { useContext, useState } from 'react'
 
 const JobCard = ({ item }: any) => {
+
+  const { savejobs, setsavejobs } = useContext(userContext);
+  const isSaved = savejobs.some(job => job.jobId === item.jobId);
+
+  function handlesaveJobs() {
+
+    if (isSaved) {
+      const filterSavejobs = savejobs.filter((elem)=>elem.id != item.id);
+      setsavejobs(filterSavejobs);
+      // localStorage.setItem('savejobs' , JSON.stringify(filterSavejobs));
+    } else {
+      
+      const newItem = [...savejobs, item];
+      setsavejobs(newItem);
+      // localStorage.setItem('savejobs', JSON.stringify(newItem));
+    }
+
+  }
 
   return (
     <div className='bg-white border border-gray-200 rounded-lg p-6 w-100 h-48 shadow-sm hover:shadow-lg hover:bg-blue-200/20 transition-all duration-300 cursor-pointer group'>
@@ -11,9 +32,9 @@ const JobCard = ({ item }: any) => {
       <div className='flex justify-between items-start mb-4'>
         <div className='flex-1'>
           <Link href={`/details/${item.jobId}`} key={item.jobId}>
-          <h1 className='text-xl font-semibold text-gray-900 mb-2 leading-tight line-clamp-1 group-hover:text-blue-600 transition-colors duration-200 group-hover:underline'>
-            {item.jobTitle}
-          </h1>
+            <h1 className='text-xl font-semibold text-gray-900 mb-2 leading-tight line-clamp-1 group-hover:text-blue-600 transition-colors duration-200 group-hover:underline'>
+              {item.jobTitle}
+            </h1>
           </Link>
           <div className='flex items-center gap-3 text-sm'>
             <span className='bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium'>
@@ -27,17 +48,17 @@ const JobCard = ({ item }: any) => {
 
 
         {/* Save Button */}
-        <button className='p-2 hover:bg-gray-100 rounded-lg transition-all duration-200 group-hover:bg-blue-50'>
+        <button onClick={handlesaveJobs} className='p-2 hover:bg-gray-100 rounded-lg transition-all duration-200 group-hover:bg-blue-50'>
           <svg
             width="18"
             height="18"
             viewBox="0 0 24 24"
-            fill="none"
+            fill={isSaved ? "black" : "none"}
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className='text-gray-400 hover:text-blue-600 transition-colors duration-200'
+            
           >
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
           </svg>
