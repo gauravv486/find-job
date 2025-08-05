@@ -27,7 +27,7 @@ const loginPage = () => {
     const data = await response.json();
     console.log(data)
     if (data.success) {
-      router.push('/');
+      window.location.href = '/';
       // router.refresh();
     }
     else {
@@ -67,7 +67,7 @@ const loginPage = () => {
                   placeholder='Enter your email' 
                   value={email} 
                   onChange={(e) => { setemail(e.target.value) }}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
                   required
                 />
               </div>
@@ -89,7 +89,7 @@ const loginPage = () => {
                   placeholder='Enter your password' 
                   value={password} 
                   onChange={(e) => { setpassword(e.target.value) }}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
                   required
                 />
               </div>

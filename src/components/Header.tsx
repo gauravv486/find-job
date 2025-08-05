@@ -10,25 +10,28 @@ import Isuserlogin from "./Isuserlogin";
 import { userContext } from "@/context/User";
 import removetoken from "@/services/removetoken";
 import { link } from "fs";
+import ModeToggle from "./theme/ToggleButton";
 
 const Header = () => {
   const router = useRouter();
   const [query, setquery] = useState("");
   const [suggestions, setSuggestion] = useState([]);
 
-  function clearSuggestions(){
-    setSuggestion([]);
-  }
-  
+
+
+  // function clearSuggestions() {
+  //   setSuggestion([]);
+  // }
+
   const { user } = useContext(userContext);
 
   async function handlelogin() {
     if (user) {
       await fetch('http://localhost:3000/api/logout');
-      router.push('/login');
-      router.refresh();
+      alert('user hai', user);
+      window.location.href = '/login';
     } else {
-      router.push('/login');
+      window.location.href = '/login';
     }
   }
 
@@ -63,40 +66,38 @@ const Header = () => {
   }, [query])
 
   return (
-    <header className="bg-white sticky top-0 z-50 flex items-center justify-between px-6 h-20 border-b border-gray-200 shadow-sm">
+    <header className="bg-black sticky top-0 z-50 flex items-center justify-between px-6 h-20  shadow-sm">
       {/* Logo Section */}
       <div className="flex items-center gap-3">
-        <div className="flex items-center">
-          <Image src="/businessman.png" alt="Businessman" width={32} height={32} className="rounded-full" />
-        </div>
-        <Link href={'/'}><h1 className="text-2xl font-bold text-blue-600 tracking-tight">JobZone</h1></Link>
+        
+        <Link href={'/'}><h1 className="text-2xl font-bold text-white tracking-tight">JobZone</h1></Link>
       </div>
 
       {/* Search Section */}
       <div className="flex-1 max-w-3xl mx-8 relative">
-        <form onSubmit={handlesubmit} method="GET" className="flex items-center bg-white rounded-lg border border-gray-300 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all">
+        <form onSubmit={handlesubmit} method="GET" className="flex items-center bg-gray-700/20 rounded-lg shadow-sm overflow-hidden  transition-all">
           <div className="flex-1 flex">
             <input
-              className="flex-1 px-6 py-4 border-none outline-none text-gray-700 placeholder-gray-500 bg-transparent"
+              className="flex-1 px-6 py-4 border-none outline-none text-gray-200 placeholder-gray-400 bg-transparent"
               type="text"
-              placeholder="Search by job title, company, or keywords..."
+              placeholder="Search by job title"
               name="query"
               value={query}
               onChange={(e) => { setquery(e.target.value) }}
-              onBlur={clearSuggestions}
+            // onBlur={clearSuggestions}
             />
           </div>
-          <button type="submit" className="bg-blue-600 text-white px-8 py-4 font-medium hover:bg-blue-700 focus:bg-blue-700 transition-colors duration-200 whitespace-nowrap">
+          <button type="submit" className="bg-gray-700 text-white px-8 py-4 font-medium hover:bg-gray-600 focus:bg-gray-600 transition-colors duration-200 whitespace-nowrap">
             Find Jobs
           </button>
         </form>
-        
+
         {/* Suggestions Dropdown */}
         {suggestions.length > 0 && (
-          <div className="absolute w-full bg-white shadow-xl border border-gray-200 rounded-lg mt-2 max-h-64 overflow-y-auto z-50">
+          <div className="absolute w-full bg-gray-900 shadow-xl border border-gray-700 rounded-lg mt-2 max-h-64 overflow-y-auto z-50">
             {suggestions?.map((item, index) => (
               <Link key={index} href={`/search?query=${item}`}>
-                <div className="px-6 py-3 hover:bg-blue-50 cursor-pointer text-gray-700 border-b border-gray-100 last:border-b-0 transition-colors duration-150">
+                <div className="px-6 py-3 hover:bg-gray-800 cursor-pointer text-gray-200 border-b border-gray-700 last:border-b-0 transition-colors duration-150">
                   <p className="text-sm font-medium">{item}</p>
                 </div>
               </Link>
@@ -107,17 +108,35 @@ const Header = () => {
 
       {/* Action Buttons */}
       <div className="flex items-center gap-6">
+
+        {
+          user.role === "admin" && <Link href={'/adminpanel'}>
+            <button className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-800">
+              AdminPanel
+            </button>
+          </Link>
+        }
+
+        {
+          user.role === "user" && <Link href={'/profile'}>
+            <button className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-800">
+              Profile
+            </button>
+          </Link>
+        }
+
         <Link href={'/savejobs'}>
-          <button className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-blue-50">
+          <button className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-800">
             Saved Jobs
           </button>
         </Link>
-        <button 
-          onClick={handlelogin} 
-          className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200 px-4 py-2 rounded-md hover:bg-blue-50 border border-gray-300 hover:border-blue-300"
+        <button
+          onClick={handlelogin}
+          className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-4 py-2 rounded-md hover:bg-gray-800 border border-gray-600 hover:border-gray-500"
         >
           {user ? "Logout" : "Login"}
         </button>
+        <ModeToggle />
       </div>
     </header>
   )

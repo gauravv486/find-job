@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import UserProvider from "@/context/User";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,18 +26,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="relative">
 
-      <UserProvider>
-        
-        <Theme >
-          {children}
-        </Theme>
-      
-      </UserProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <UserProvider>
+
+            <Theme >
+              {children}
+            </Theme>
+
+          </UserProvider>
+        </ThemeProvider>
 
       </body>
     </html>
   );
 }
+
+
+

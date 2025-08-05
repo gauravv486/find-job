@@ -20,7 +20,11 @@ export async function POST(req: NextRequest) {
 
         const token = await generateToken(user.email);
         const cookiestore = await cookies();
-        cookiestore.set('token' , token);
+        cookiestore.set('token' , token , {
+            httpOnly : true ,
+            maxAge : 60 * 60 * 24 * 7 ,
+            path : "/"
+        });
 
         return NextResponse.json({
             success : true ,

@@ -6,26 +6,23 @@ import Link from 'next/link';
 import SearchFilter from '@/components/SearchFilter';
 import Header from '@/components/Header';
 
-
 const searchPage = async ({ searchParams }) => {
-
-  const query = searchParams.query ;
+  const query = searchParams.query;
   const minprice = searchParams.minprice;
   const jobtype = searchParams.jobtype || "";
 
   let url = `http://localhost:3000/api/search?query=${query}&minprice=${minprice}&jobtype=${jobtype}`;
- 
   const res = await fetch(url);
   const data = await res.json();
   let result = data?.data;
 
   return (
-    <div>
+    <div className="bg-black min-h-screen text-white">
       <Header />
 
       <div className='flex relative'>
 
-        <div className='w-1/5'>
+        <div className='w-1/5 '>
           <SearchFilter />
         </div>
 
@@ -33,7 +30,10 @@ const searchPage = async ({ searchParams }) => {
           {
             result?.map((item) => {
               return (
-                <div key={item.jobId} className="bg-white group rounded-lg shadow-md hover:shadow-lg transition duration-100 p-6 w-full max-w-140 border border-gray-200 hover:bg-blue-100/20 ">
+                <div
+                  key={item.jobId}
+                  className="bg-gray-700/10 group rounded-lg border-gray-700/20 shadow-md hover:shadow-lg transition duration-100 p-6 w-full max-w-140 "
+                >
                   {/* Header Section */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
@@ -41,23 +41,20 @@ const searchPage = async ({ searchParams }) => {
                         <img
                           src={item.employerLogo}
                           alt={`${item.employerName} logo`}
-                          className="w-12 h-12 rounded-lg object-cover border border-gray-200"
+                          className="w-12 h-12 rounded-lg object-cover border border-gray-700"
                         />
                       ) : (
-                        <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
-                          <Building2 className="w-6 h-6 text-blue-600" />
+                        <div className="w-12 h-12 rounded-lg bg-gray-800 flex items-center justify-center">
+                          <Building2 className="w-6 h-6 text-white" />
                         </div>
                       )}
                       <div>
                         <Link href={`/details/${item.jobId}`} key={item.jobId}>
-                          <h2 className="text-xl font-semibold text-gray-900 mb-1 group-hover:text-blue-600 group-hover:underline">
+                          <h2 className="text-xl font-semibold text-gray-300 mb-1 group-hover:text-blue-400 group-hover:underline">
                             {item.jobTitle}
                           </h2>
                         </Link>
-                        {/* <h2 className="text-xl font-semibold text-gray-900 mb-1 group-hover:text-blue-600 underline">
-                      {item.jobTitle}
-                    </h2> */}
-                        <div className="flex items-center text-gray-600">
+                        <div className="flex items-center text-gray-400">
                           <Building2 className="w-4 h-4 mr-1" />
                           <span className="font-medium">{item.employerName}</span>
                         </div>
@@ -75,16 +72,16 @@ const searchPage = async ({ searchParams }) => {
 
                   {/* Job Description */}
                   <div className="mb-4">
-                    <p className="text-gray-700 leading-relaxed line-clamp-3">
+                    <p className="text-gray-500 leading-relaxed line-clamp-3">
                       {item.jobDescription}
                     </p>
                   </div>
 
                   {/* Footer Section */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <div className="flex items-center space-x-2">
-                      <Briefcase className="w-4 h-4 text-gray-400" />
-                      <span className="text-sm text-gray-500">Job ID: {item.jobId}</span>
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-700">
+                    <div className="flex items-center space-x-2 text-gray-400">
+                      <Briefcase className="w-4 h-4" />
+                      <span className="text-sm">Job ID: {item.jobId}</span>
                       <span>{`MinSalary : ${item.minSalary}`}</span>
                     </div>
 
@@ -93,7 +90,7 @@ const searchPage = async ({ searchParams }) => {
                         href={item.employerWebsite}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors duration-200"
+                        className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-blue-400 bg-gray-800 rounded-md hover:bg-gray-700 transition-colors duration-200"
                       >
                         Visit Company
                         <ExternalLink className="w-3 h-3 ml-1" />
@@ -110,4 +107,4 @@ const searchPage = async ({ searchParams }) => {
   )
 }
 
-export default searchPage
+export default searchPage;

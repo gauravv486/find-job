@@ -24,7 +24,8 @@ export default function UserProvider({ children }) {
                     setuser(data.user)
                 }
             } catch (error) {
-                console.log(error);
+                
+                return error.message;
             }
         }
         getuser();
