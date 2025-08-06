@@ -13,8 +13,8 @@ const signupPage = () => {
     const obj = {
         email,
         password,
-        role
-    }
+        role : 'user'
+    } 
 
     async function handlesubmit(e: FormEvent) {
         e.preventDefault();
@@ -52,7 +52,7 @@ const signupPage = () => {
                                 placeholder='Enter your email' 
                                 value={email} 
                                 onChange={(e) => { setemail(e.target.value) }}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
+                                className="text-black w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
                                 required
                             />
                         </div>
@@ -67,13 +67,13 @@ const signupPage = () => {
                                 placeholder='Create a password' 
                                 value={password} 
                                 onChange={(e) => { setpassword(e.target.value) }}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
+                                className="text-black w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
                                 required
                             />
                         </div>
 
                         {/* Role Selection */}
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-medium text-gray-700 mb-3">
                                 Select Role
                             </label>
@@ -104,7 +104,7 @@ const signupPage = () => {
                                     <span className="ml-auto text-sm text-gray-500">Full access</span>
                                 </label>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Submit Button */}
                         <button 

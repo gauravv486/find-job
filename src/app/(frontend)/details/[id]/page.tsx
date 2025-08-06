@@ -1,6 +1,8 @@
 //@ts-nocheck
 import React from 'react';
 import { MapPin, Building2, Clock, ExternalLink, Briefcase } from 'lucide-react';
+import JobApplyButton from '@/components/user/JobApplyButton';
+import JobApplications from '@/components/user/JobApplications';
 
 const DetailPage = async ({ params }) => {
 
@@ -35,10 +37,10 @@ const DetailPage = async ({ params }) => {
     <div className="min-h-screen bg-black py-6 px-4">
       <div className="max-w-4xl mx-auto min-h-screen flex flex-col">
         {/* Header Card */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl shadow-2xl overflow-hidden mb-6">
-          <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6">
+        <div className="bg-gray-700/20  rounded-xl shadow-2xl overflow-hidden mb-6">
+          <div className="bg-gray-700/20 p-6">
             <div className="flex flex-col sm:flex-row items-start gap-6">
-              <div className=" border border-gray-700 rounded-lg p-3 shadow-xl flex-shrink-0">
+              <div className=" rounded-lg p-3 shadow-xl flex-shrink-0">
                 <img
                   src={item.employerLogo}
                   alt={`${item.employerName} logo`}
@@ -66,10 +68,11 @@ const DetailPage = async ({ params }) => {
                     <MapPin size={16} className="text-green-400" />
                     <span>{item.jobCountry}</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Clock size={16} className="text-purple-400" />
-                    <span>{item.job_employment_type_text}</span>
+
+                  <div>
+                    <JobApplications item={item}/>
                   </div>
+                  
                 </div>
               </div>
             </div>
@@ -77,7 +80,7 @@ const DetailPage = async ({ params }) => {
         </div>
 
         {/* Content - Flex grow to fill remaining space */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl shadow-2xl p-6 sm:p-8 flex-1">
+        <div className="bg-gray-700/20   rounded-xl shadow-2xl p-6 sm:p-8 flex-1">
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
               <Briefcase size={20} className="text-blue-400" />
@@ -105,15 +108,16 @@ const DetailPage = async ({ params }) => {
           {/* Action Button */}
           <div className="border-t border-gray-800 pt-6 mt-auto">
             <div className="flex justify-center">
-              <a
+              {/* <a
                 href={item.jobApplyLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl border border-blue-500"
+                className="inline-flex items-center justify-center bg-blue-400 hover:bg-blue-300 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl border border-blue-500"
               >
                 Apply Now
                 <ExternalLink size={16} className="ml-2" />
-              </a>
+              </a> */}
+              <JobApplyButton item={item}/>
             </div>
           </div>
         </div>

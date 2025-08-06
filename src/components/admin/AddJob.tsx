@@ -26,9 +26,7 @@ const AddJob = () => {
 
     async function handleSubmit(e: any) {
         e.preventDefault();
-
-        // NOTE: The user's original fetch logic is preserved.
-        // In a real application, you would replace the alert with a proper notification/toast component.
+        
         try {
             const res = await fetch('/api/jobs', {
                 method: "POST",
@@ -52,7 +50,7 @@ const AddJob = () => {
                     jobDescription: "",
                     jobCountry: "",
                     minSalary: "",
-                    jobLocation: ""
+                    jobLocation: "" ,
                 });
             } else {
                 alert('Something went wrong: ' + data.message); // Placeholder for error notification

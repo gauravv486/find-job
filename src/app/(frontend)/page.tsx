@@ -33,9 +33,9 @@ export default async function Home() {
       
       <main className="flex flex-wrap gap-4 justify-center mt-15 pb-12">
         {
-          data?.map((item) => {
+          data?.map((item , index) => {
             return (
-              <div key={item.jobId}>
+              <div key={index}>
                 <JobCard item={item} />
               </div>
             )

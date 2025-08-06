@@ -31,7 +31,7 @@ const loginPage = () => {
       // router.refresh();
     }
     else {
-      alert("something went wrong")
+      alert("Invalid Credentials!! Please Signup")
     }
   }
 
@@ -96,11 +96,11 @@ const loginPage = () => {
             </div>
 
             {/* Forgot Password Link */}
-            <div className="flex items-center justify-end">
+            {/* <div className="flex items-center justify-end">
               <a href="#" className="text-sm text-blue-600 hover:text-blue-700 hover:underline transition duration-200">
                 Forgot your password?
               </a>
-            </div>
+            </div> */}
 
             {/* Submit Button */}
             <button 

@@ -12,6 +12,9 @@ export default async function getCurrentUser() {
         const currUser = await prismaclient.user.findUnique({
             where: {
                 email: user
+            },
+            include : {
+                company : true
             }
         })
         return currUser;

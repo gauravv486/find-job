@@ -1,3 +1,4 @@
+//@ts-nocheck
 import prismaclient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,7 +8,14 @@ export async function GET(req : NextRequest , context : {params :  {id : string}
     try{
         const data = await prismaclient.job.findUnique({
             where : {
-                jobId : id
+                id : id
+            },
+            include : {
+                Company : {
+                    include : {
+                        user : true
+                    }
+                }
             }
         })
         if(!data){

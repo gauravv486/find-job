@@ -110,7 +110,7 @@ const Header = () => {
       <div className="flex items-center gap-6">
 
         {
-          user.role === "admin" && <Link href={'/adminpanel'}>
+          user?.role === "admin" && <Link href={'/adminpanel'}>
             <button className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-800">
               AdminPanel
             </button>
@@ -118,18 +118,18 @@ const Header = () => {
         }
 
         {
-          user.role === "user" && <Link href={'/profile'}>
+          user?.role === "user" && <Link href={'/profile'}>
             <button className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-800">
               Profile
             </button>
           </Link>
         }
 
-        <Link href={'/savejobs'}>
+        {/* <Link href={'/savejobs'}>
           <button className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-800">
             Saved Jobs
           </button>
-        </Link>
+        </Link> */}
         <button
           onClick={handlelogin}
           className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-4 py-2 rounded-md hover:bg-gray-800 border border-gray-600 hover:border-gray-500"

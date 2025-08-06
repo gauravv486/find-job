@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
                 email: user
             },
             include : {
-                company : true
+                company : true 
             }
         })
         

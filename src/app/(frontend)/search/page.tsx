@@ -28,10 +28,10 @@ const searchPage = async ({ searchParams }) => {
 
         <div className='flex flex-wrap justify-center items-center gap-4 mt-8 flex-1'>
           {
-            result?.map((item) => {
+            result?.map((item, index) => {
               return (
                 <div
-                  key={item.jobId}
+                  key={index}
                   className="bg-gray-700/10 group rounded-lg border-gray-700/20 shadow-md hover:shadow-lg transition duration-100 p-6 w-full max-w-140 "
                 >
                   {/* Header Section */}
@@ -49,7 +49,7 @@ const searchPage = async ({ searchParams }) => {
                         </div>
                       )}
                       <div>
-                        <Link href={`/details/${item.jobId}`} key={item.jobId}>
+                        <Link href={`/details/${item.id}`} key={item.jobId}>
                           <h2 className="text-xl font-semibold text-gray-300 mb-1 group-hover:text-blue-400 group-hover:underline">
                             {item.jobTitle}
                           </h2>
@@ -85,17 +85,13 @@ const searchPage = async ({ searchParams }) => {
                       <span>{`MinSalary : ${item.minSalary}`}</span>
                     </div>
 
-                    {item.employerWebsite && (
-                      <a
-                        href={item.employerWebsite}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-blue-400 bg-gray-800 rounded-md hover:bg-gray-700 transition-colors duration-200"
-                      >
-                        Visit Company
-                        <ExternalLink className="w-3 h-3 ml-1" />
-                      </a>
-                    )}
+                    <Link href={`/company/${item.id}`}>
+                      <div className='flex'>
+                        <span className='text-sm text-blue-300'>Company</span>
+                        <span>< ExternalLink height={20} /></span>
+                      </div>
+                    </Link>
+
                   </div>
                 </div>
               );

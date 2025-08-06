@@ -1,11 +1,19 @@
 
+import getCurrentUser from "@/helper";
 import prismaclient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     try {
-
-        const data = await prismaclient.job.findMany();
+        const data = await prismaclient.job.findMany({
+            include : {
+                Company : {
+                    include : {
+                        user : true
+                    }
+                }
+            }
+        });
         return NextResponse.json({
             success: true,
             data: data
@@ -21,12 +29,13 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
 
-    try {
+    try {      
         const body = await req.json();
 
         const formattedBody = {
             ...body,
-            minSalary: parseInt(body.minSalary)
+            minSalary: parseInt(body.minSalary),
+            
         }
 
         const job = await prismaclient.job.create({
