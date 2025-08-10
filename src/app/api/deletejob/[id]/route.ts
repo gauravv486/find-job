@@ -9,8 +9,8 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
         const id = params.id;
 
         const user = await getCurrentUser();
-        
-        if (!user || !user.email) {
+
+        if (!user) {
             return NextResponse.json({
                 success: false,
                 message: "Unauthorized: User not found"
@@ -24,7 +24,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
             include: {
                 Company: {
                     include: {
-                        user: true  
+                        user: true
                     }
                 }
             }
@@ -37,7 +37,8 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
             }, { status: 404 });
         }
 
-        if (job.Company.user.email !== user.email) {
+
+        if ( job.Company.user.email !== user.email) {
             return NextResponse.json({
                 success: false,
                 message: "You can't delete someone else's job"

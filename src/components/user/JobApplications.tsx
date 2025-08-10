@@ -25,10 +25,9 @@ const JobApplications = ({ item }) => {
     }
   }
 
-  if(user?.email != item?.company?.user?.email){
+  if(user?.email != item?.Company?.user?.email){
     return null;
   }
-
 
   return (
     <div>

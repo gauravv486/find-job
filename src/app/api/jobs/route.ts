@@ -4,7 +4,8 @@ import prismaclient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-    try {
+    try 
+    {
         const data = await prismaclient.job.findMany({
             include : {
                 Company : {

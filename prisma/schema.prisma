@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Job {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
   jobId           String?
   employerName    String?
   employerLogo    String?
@@ -19,8 +19,9 @@ model Job {
   jobCountry      String?
   minSalary       Int?
   jobLocation     String?
-  companyId       String?  @db.ObjectId
-  Company         Company? @relation(fields: [companyId], references: [id])
+  companyId       String?       @db.ObjectId
+  Company         Company?      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  Application     Application[]
 }
 
 model User {
@@ -33,13 +34,14 @@ model User {
 }
 
 model Company {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
   name    String?
   logo    String?
   website String?
-  ownerId String? @unique @db.ObjectId
-  user    User?   @relation(fields: [ownerId], references: [id])
+  ownerId String?  @unique @db.ObjectId
+  user    User?    @relation(fields: [ownerId], references: [id])
   job     Job[]
+  review  Review[]
 }
 
 model Openings {
@@ -52,12 +54,14 @@ model Application {
   user_id String @db.ObjectId
   user    User   @relation(fields: [user_id], references: [id])
   job_id  String @db.ObjectId
+  job     Job    @relation(fields: [job_id], references: [id])
 }
 
 model Review {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   user_id    String?
-  company_id String?
+  company_id String?  @db.ObjectId
   comment    String?
   rating     String?
+  Company    Company? @relation(fields: [company_id], references: [id])
 }

@@ -5,19 +5,19 @@ import { NextRequest, NextResponse } from "next/server";
 export async function PATCH(req: NextRequest, { params }: { params: any }) {
   try {
     const body = await req.json();
-    const id = await params.id; 
+    const id = await params.id;
 
     const user = await getCurrentUser();
 
     const existingJob = await prismaclient.job.findUnique({
-      where: { id },
+      where: { id : id},
       include: {
         Company: {
           include: {
             user: true,
-          },
-        },
-      },
+          }
+        }
+      }
     });
 
     if (user.email !== existingJob?.Company?.user?.email) {
@@ -30,7 +30,7 @@ export async function PATCH(req: NextRequest, { params }: { params: any }) {
 
     const updatedJob = await prismaclient.job.update({
       where: { id },
-      data: body, 
+      data: body,
     });
 
     return NextResponse.json({

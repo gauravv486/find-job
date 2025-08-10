@@ -6,6 +6,8 @@ import AddJobUser from "@/components/user/AddJobUser";
 import JobList from "@/components/user/JobList";
 import { User, Building2, Globe, Image, Plus, Briefcase } from "lucide-react";
 import { use, useEffect, useState } from "react"
+import Link from "next/link";
+import DeleteCompanyButton from "@/components/user/DeleteCompanyButton";
 
 const ProfilePage = () => {
     const [user, setuser] = useState({});
@@ -35,6 +37,9 @@ const ProfilePage = () => {
                             <p className="text-white/60 mt-1">Manage your profile and company</p>
                         </div>
                         <div className="flex items-center gap-4">
+                            <div>
+                                <Link href={"/applied-jobs"}>Applied Jobs</Link>
+                            </div>
                             <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
                                 <User className="w-5 h-5" />
                             </div>
@@ -45,10 +50,10 @@ const ProfilePage = () => {
 
             <div className="max-w-7xl mx-auto px-6 py-8">
                 <div className="grid grid-cols-12 gap-8 min-h-[calc(100vh-200px)]">
-                    
+
                     {/* Left Sidebar - User Profile & Company Cards */}
                     <div className="col-span-12 lg:col-span-4 space-y-6">
-                        
+
                         {/* User Profile Card */}
                         <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                             <div className="flex items-center gap-4 mb-6">
@@ -60,7 +65,7 @@ const ProfilePage = () => {
                                     <p className="text-white/60 text-sm">Account Information</p>
                                 </div>
                             </div>
-                            
+
                             <div className="space-y-3">
                                 <div className="bg-black/30 rounded-xl p-4">
                                     <p className="text-white/60 text-xs uppercase tracking-wider mb-1">Email</p>
@@ -121,7 +126,7 @@ const ProfilePage = () => {
                                                 </a>
                                             </div>
                                         )}
-                                        
+
                                         {user.company.logo && (
                                             <div className="bg-black/40 rounded-lg p-3">
                                                 <div className="flex items-center gap-2 mb-1">
@@ -131,6 +136,10 @@ const ProfilePage = () => {
                                                 <p className="text-white/80 text-sm break-all">{user.company.logo}</p>
                                             </div>
                                         )}
+                                    </div>
+
+                                    <div>
+                                        <DeleteCompanyButton companyId={user.company.id}/>
                                     </div>
                                 </div>
                             )}

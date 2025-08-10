@@ -8,12 +8,12 @@ export async function POST(req: NextRequest) {
         const user = await getCurrentUser();
 
         const body = await req.json();
-        
+
         const formattedbody = {
             ...body,
             ownerId: user.id
         }
-        
+
         const company = await prismaclient.company.create({
             data: formattedbody
         })

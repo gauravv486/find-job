@@ -8,11 +8,13 @@ const DetailPage = async ({ params }) => {
 
   const id = params.id;
   let item;
+  let isUserApplied;
   try {
-    const res = await fetch(`http://localhost:3000/api/jobs/${id}`);
+    const res = await fetch(`http://localhost:3000/api/jobs/${id}`, {
+      cache: "no-store",
+    });
     const data = await res.json();
-    console.log(data)
-    item = data;
+    item = data?.data;
   } catch (error) {
     console.log(error.message);
   }
@@ -70,9 +72,9 @@ const DetailPage = async ({ params }) => {
                   </div>
 
                   <div>
-                    <JobApplications item={item}/>
+                    <JobApplications item={item} />
                   </div>
-                  
+
                 </div>
               </div>
             </div>
@@ -108,16 +110,7 @@ const DetailPage = async ({ params }) => {
           {/* Action Button */}
           <div className="border-t border-gray-800 pt-6 mt-auto">
             <div className="flex justify-center">
-              {/* <a
-                href={item.jobApplyLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-blue-400 hover:bg-blue-300 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl border border-blue-500"
-              >
-                Apply Now
-                <ExternalLink size={16} className="ml-2" />
-              </a> */}
-              <JobApplyButton item={item}/>
+             <JobApplyButton item={item} />
             </div>
           </div>
         </div>

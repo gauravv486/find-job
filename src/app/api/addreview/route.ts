@@ -5,16 +5,25 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { user_id, company_id, comment, rating } = body;
 
     const newReview = await prismaclient.review.create({
       data: body
     });
+
+    if (!newReview) {
+      return NextResponse.json({
+        success: false,
+        message: 'error at api point',
+        review: newReview,
+      });
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Review added successfully',
       review: newReview,
     });
+
   } catch (error) {
     return NextResponse.json({
       success: false,

@@ -13,6 +13,13 @@ export async function GET(req: NextRequest) {
             where: {
                 companyId: company.id,
             },
+            include : {
+                Company : {
+                    include : {
+                        user : true
+                    }
+                }
+            }
         });
 
         return NextResponse.json({

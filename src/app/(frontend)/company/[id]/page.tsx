@@ -9,21 +9,18 @@ const CompanyPage = async ({ params }) => {
     const id = params.id;
     let company;
     let jobs;
-
+    let reviews;
     const user = await getCurrentUser();
-    
     try {
         const res = await fetch(`http://localhost:3000/api/company/${id}`);
         const data = await res.json();
-        console.log(data);
+        console.log(data)
         company = data?.data;
         jobs = company?.job || [];
+        reviews = company?.review || [];
     } catch {
         console.log("something went wrong");
     }
-    
-    console.log(company);
-    console.log(jobs);
     
     return (
         <div className="min-h-screen bg-black text-white">
@@ -77,10 +74,20 @@ const CompanyPage = async ({ params }) => {
                                 </div>
                                 <ReviewDialog userId={user.id} companyId={id}/>
                             </div>
-                            
                         )}
+
+                        {
+                            reviews.map((item)=>{
+                                return(
+                                    <div key={item.id}>
+                                        <p>{item.comment}</p>
+                                        <p>{item.rating}</p>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
-                    
+
                     {/* Right Side - Jobs List */}
                         <div className="lg:col-span-2">
                         <div className="mb-6">

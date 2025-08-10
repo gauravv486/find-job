@@ -7,10 +7,10 @@ export default async function Home() {
   const res = await fetch('http://localhost:3000/api/jobs');
   let data = await res.json();
   data = data?.data;
-  // console.log(data)
 
   return (
     <div className="bg-black min-h-screen">
+      
       <Header />
       
       <div className="flex items-center justify-center min-h-[70vh]">

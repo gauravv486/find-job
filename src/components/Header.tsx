@@ -17,18 +17,11 @@ const Header = () => {
   const [query, setquery] = useState("");
   const [suggestions, setSuggestion] = useState([]);
 
-
-
-  // function clearSuggestions() {
-  //   setSuggestion([]);
-  // }
-
   const { user } = useContext(userContext);
 
   async function handlelogin() {
     if (user) {
       await fetch('http://localhost:3000/api/logout');
-      alert('user hai', user);
       window.location.href = '/login';
     } else {
       window.location.href = '/login';

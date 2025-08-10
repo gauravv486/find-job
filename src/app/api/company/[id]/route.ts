@@ -11,7 +11,8 @@ export async function GET(req: NextRequest, { params }) {
         id: id,
       },
       include: {
-        job: true, // ✅ use the correct field name from your schema
+        job: true,
+        review: true
       },
     });
 

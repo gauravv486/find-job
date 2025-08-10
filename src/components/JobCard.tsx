@@ -9,24 +9,22 @@ import EditJobButton from './user/EditJobButton'
 
 const JobCard = ({ item }: any) => {
 
-
   const { savejobs, setsavejobs } = useContext(userContext);
-  const isSaved = savejobs.some(job => job.jobId === item.jobId);
+  // const isSaved = savejobs.some(job => job.jobId === item.jobId);
 
   const { user } = useContext(userContext);
 
 
+  // function handlesaveJobs() {
+  //   if (isSaved) {
+  //     const filterSavejobs = savejobs.filter((elem) => elem.id != item.id);
+  //     setsavejobs(filterSavejobs);
+  //   } else {
+  //     const newItem = [...savejobs, item];
+  //     setsavejobs(newItem);
 
-  function handlesaveJobs() {
-    if (isSaved) {
-      const filterSavejobs = savejobs.filter((elem) => elem.id != item.id);
-      setsavejobs(filterSavejobs);
-    } else {
-      const newItem = [...savejobs, item];
-      setsavejobs(newItem);
-
-    }
-  }
+  //   }
+  // }
 
   async function handledelete() {
     const confirmDelete = confirm("Are you sure you want to delete this job?");
@@ -48,12 +46,13 @@ const JobCard = ({ item }: any) => {
     }
 
   }
-
+  const isOwner = item?.Company?.user?.email === user?.email;
 
   return (
+
     <div className='bg-white/5  rounded-2xl p-6 w-full h-48 hover:bg-white/10 transition-all cursor-pointer group'>
       {/* Header Section */}
-      <div className='flex justify-between items-start mb-4'>
+      <div className='flex justify-between items-start mb-4 min-w-lg'>
         <div className='flex-1'>
           <Link href={`/details/${item.id}`} key={item.id}>
             <h1 className='text-xl font-medium text-white mb-2 leading-tight line-clamp-1 group-hover:underline transition-all'>
@@ -86,15 +85,18 @@ const JobCard = ({ item }: any) => {
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
           </svg>
         </button> */}
-        <button onClick={handledelete} className='p-2 hover:bg-white/10 rounded-xl transition-all'>
-          <Trash height={18} />
-        </button>
+
 
         {
-          user?.email != item?.company?.user?.email && <EditJobButton job={item}/>
+          isOwner && (<button onClick={handledelete} className='p-2 hover:bg-white/10 rounded-xl transition-all'>
+            <Trash height={18} />
+          </button>)
         }
-        
-        {/* <EditJobButton job={item}/> */}
+
+
+        {
+          isOwner && <EditJobButton job={item} />
+        }
 
 
       </div>
@@ -125,10 +127,10 @@ const JobCard = ({ item }: any) => {
         </div>
         <div>
           <Link href={`/company/${item.companyId}`}>
-          <div className='flex'>
-            <span className='text-sm text-blue-300'>Company</span>
-            <span>< ExternalLink height={20} /></span>
-          </div>
+            <div className='flex'>
+              <span className='text-sm text-blue-300'>Company</span>
+              <span>< ExternalLink height={20} /></span>
+            </div>
           </Link>
         </div>
       </div>
