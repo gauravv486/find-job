@@ -1,13 +1,12 @@
-//@ts-nocheck
 import Header from "@/components/Header";
 import JobCard from "@/components/JobCard";
-import { Search } from "lucide-react";
+import { Job } from "../../../generated/prisma";
+
 
 export default async function Home() {
   const res = await fetch('http://localhost:3000/api/jobs');
   let data = await res.json();
   data = data?.data;
-
   return (
     <div className="bg-black min-h-screen">
       
@@ -33,7 +32,7 @@ export default async function Home() {
       
       <main className="flex flex-wrap gap-4 justify-center mt-15 pb-12">
         {
-          data?.map((item , index) => {
+          data?.map((item: Job, index: number) => {
             return (
               <div key={index}>
                 <JobCard item={item} />

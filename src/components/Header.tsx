@@ -118,18 +118,18 @@ const Header = () => {
           </Link>
         }
 
-        {/* <Link href={'/savejobs'}>
+        <Link href={'/savejobs'}>
           <button className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-gray-800">
             Saved Jobs
           </button>
-        </Link> */}
+        </Link>
         <button
           onClick={handlelogin}
           className="text-gray-300 hover:text-white font-medium transition-colors duration-200 px-4 py-2 rounded-md hover:bg-gray-800 border border-gray-600 hover:border-gray-500"
         >
           {user ? "Logout" : "Login"}
         </button>
-        <ModeToggle />
+        {/* <ModeToggle /> */}
       </div>
     </header>
   )

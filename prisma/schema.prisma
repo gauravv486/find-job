@@ -44,11 +44,6 @@ model Company {
   review  Review[]
 }
 
-model Openings {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  tittle String
-}
-
 model Application {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   user_id String @db.ObjectId

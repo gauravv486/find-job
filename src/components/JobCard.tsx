@@ -6,25 +6,25 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useState } from 'react'
 import EditJobButton from './user/EditJobButton'
+import { Job  } from '../../generated/prisma'
 
-const JobCard = ({ item }: any) => {
+const JobCard = ({ item }: {item : Job}) => {
 
   const { savejobs, setsavejobs } = useContext(userContext);
-  // const isSaved = savejobs.some(job => job.jobId === item.jobId);
+  const isSaved = savejobs.some(job => job.id === item.id);
 
   const { user } = useContext(userContext);
 
 
-  // function handlesaveJobs() {
-  //   if (isSaved) {
-  //     const filterSavejobs = savejobs.filter((elem) => elem.id != item.id);
-  //     setsavejobs(filterSavejobs);
-  //   } else {
-  //     const newItem = [...savejobs, item];
-  //     setsavejobs(newItem);
-
-  //   }
-  // }
+  function handlesaveJobs() {
+    if (isSaved) {
+      const filterSavejobs = savejobs.filter((elem) => elem.id != item.id);
+      setsavejobs(filterSavejobs);
+    } else {
+      const newItem = [...savejobs, item];
+      setsavejobs(newItem);
+    }
+  }
 
   async function handledelete() {
     const confirmDelete = confirm("Are you sure you want to delete this job?");
@@ -61,7 +61,7 @@ const JobCard = ({ item }: any) => {
           </Link>
           <div className='flex items-center gap-3 text-sm'>
             <span className='bg-black/40 text-white px-3 py-1 rounded-full text-xs'>
-              {item.jobLocation}
+              {/* {item.jobLocation} */}
             </span>
             <span className='text-white/60 text-xs'>
               MinSalary : $10000 - $30000
@@ -70,7 +70,7 @@ const JobCard = ({ item }: any) => {
         </div>
 
         {/* Save Button */}
-        {/* <button onClick={handlesaveJobs} className='p-2 hover:bg-white/10 rounded-xl transition-all'>
+        <button onClick={handlesaveJobs} className='p-2 hover:bg-white/10 rounded-xl transition-all'>
           <svg
             width="18"
             height="18"
@@ -84,8 +84,7 @@ const JobCard = ({ item }: any) => {
           >
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
           </svg>
-        </button> */}
-
+        </button>
 
         {
           isOwner && (<button onClick={handledelete} className='p-2 hover:bg-white/10 rounded-xl transition-all'>
@@ -93,11 +92,9 @@ const JobCard = ({ item }: any) => {
           </button>)
         }
 
-
         {
           isOwner && <EditJobButton job={item} />
         }
-
 
       </div>
 
